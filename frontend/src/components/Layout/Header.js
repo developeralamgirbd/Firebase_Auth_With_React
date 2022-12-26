@@ -7,12 +7,11 @@ import {AuthContext} from "../../context/UserContext";
 const Header = () => {
 
     const { currentUser, logOut } = useContext(AuthContext);
-    const navigate = useNavigate();
+    // console.log(currentUser);
     const handleSignOut = ()=>{
         logOut()
             .then(() => {
                 console.log('sign out success')
-                // navigate('/login')
                 window.location.pathname = '/login';
             }).catch(err => {
                 console.log(err)

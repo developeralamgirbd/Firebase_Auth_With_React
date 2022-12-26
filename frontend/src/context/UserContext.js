@@ -18,7 +18,6 @@ const auth = getAuth(app);
 
 const UserContext = ({children})=>{
     const [currentUser, setCurrentUser]  = useState({});
-    const [userDisplayName, setDisplayName] = useState('');
     const [loading, setLoading] = useState(true);
 
     const googleProvider = new GoogleAuthProvider();
@@ -35,8 +34,7 @@ const UserContext = ({children})=>{
         return signInWithPopup(auth, facebookProvider);
     }
 
-    const createUserWithEmailPassword = async (name, email, password)=>{
-        setDisplayName(name)
+    const createUserWithEmailPassword = async (email, password)=>{
         return createUserWithEmailAndPassword(auth, email, password);
 
 
@@ -50,22 +48,24 @@ const UserContext = ({children})=>{
     }
 
     useEffect(()=>{
-        return onAuthStateChanged(auth, user=>{
-
-            updateProfile(user, {
-                    displayName: 'alamgir'
-            })
-                .then(()=> {})
-                .catch(err => console.log(err));
-
+        return onAuthStateChanged(auth, async user=>{
             if (user){
-                user.getIdToken().then(token => {
+              /*  user.getIdToken().then(token => {
                     login(token).then(result => {
-                        setCurrentUser(result.data);
+                        console.log(result.data)
+                        setCurrentUser(result?.data);
+                        setLoading(false)
                     })
-                })
+                })*/
+
+                const token = await user.getIdToken();
+                const result = await login(token);
+                console.log(result.data);
+                setCurrentUser(result?.data);
+                setLoading(false)
             }
             setLoading(false)
+
         });
 
     }, [])
@@ -78,7 +78,8 @@ const UserContext = ({children})=>{
         createUserWithEmailPassword,
         signInUserEmailPassword,
         logOut,
-        loading};
+        loading
+    };
 
     return (
         <AuthContext.Provider value={value}>

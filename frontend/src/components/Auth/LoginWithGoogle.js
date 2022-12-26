@@ -7,11 +7,9 @@ import {useNavigate} from "react-router-dom";
 const LoginWithGoogle = () => {
 
     const { signInWithGoogle } = useContext(AuthContext);
-    const navigate = useNavigate();
     const handleGoogleSignIn = ()=>{
         signInWithGoogle()
             .then(result => {
-                // navigate('/home')
                 window.location.pathname = '/home';
             }).catch(err => {
                 console.log(err)

@@ -54,7 +54,7 @@ const RegisterWithEmailPassword = () => {
             setPasswordError("");
         }
 
-        createUserWithEmailPassword(name, email, password)
+        createUserWithEmailPassword(email, password)
             .then(result => {
                 // navigate('/login')
                 window.location.pathname = '/home'

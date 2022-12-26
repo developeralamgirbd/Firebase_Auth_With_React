@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Card, Container, Row} from "react-bootstrap";
 import LoginWithGoogle from "../../components/Auth/LoginWithGoogle";
 import LoginWIthGitHub from "../../components/Auth/LoginWIthGitHub";
@@ -6,6 +6,7 @@ import LoginWithFacebook from "../../components/Auth/LoginWithFacebook";
 import LoginWithEmailPassword from "../../components/Auth/LoginWithEmailPassword";
 
 const SignUp = () => {
+
     return (
         <Container>
                 <Row className='justify-content-center my-5'>
