@@ -12,8 +12,6 @@ const RegisterWithEmailPassword = () => {
 
     const { createUserWithEmailPassword, loading } = useContext(AuthContext);
 
-    const navigate = useNavigate();
-
     const handleRegister = event => {
         event.preventDefault();
 
@@ -56,11 +54,10 @@ const RegisterWithEmailPassword = () => {
             setPasswordError("");
         }
 
-        createUserWithEmailPassword(email, password)
+        createUserWithEmailPassword(name, email, password)
             .then(result => {
-                const user = result.user;
-                console.log(user)
-                navigate('/home')
+                // navigate('/login')
+                window.location.pathname = '/home'
             }).catch(err => {
                 console.log(err.message)
             })

@@ -6,28 +6,13 @@ import {useNavigate} from "react-router-dom";
 
 const LoginWithGoogle = () => {
 
-  /*  const auth = getAuth(app);
-    const googleProvider = new GoogleAuthProvider();
-
-    const handleGoogleSignIn = ()=> {
-        signInWithPopup(auth, googleProvider)
-            .then(result => {
-                const user = result.user;
-                console.log(result)
-                console.log(user)
-            }).catch(err => {
-            console.log(err)
-        })
-    }*/
-
     const { signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const handleGoogleSignIn = ()=>{
         signInWithGoogle()
             .then(result => {
-                const user = result.user;
-                console.log(user)
-                navigate('/home')
+                // navigate('/home')
+                window.location.pathname = '/home';
             }).catch(err => {
                 console.log(err)
         })

@@ -13,8 +13,8 @@ const LoginWithFacebook = () => {
         signInWithFacebook()
             .then(result => {
                 const user = result.user;
-                console.log(user)
-                navigate('/home')
+                // navigate('/home')
+                window.location.pathname = '/home';
             }).catch(err => {
                 console.log(err)
         })

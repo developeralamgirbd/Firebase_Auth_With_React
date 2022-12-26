@@ -12,7 +12,8 @@ const Header = () => {
         logOut()
             .then(() => {
                 console.log('sign out success')
-                navigate('/login')
+                // navigate('/login')
+                window.location.pathname = '/login';
             }).catch(err => {
                 console.log(err)
             })
@@ -24,10 +25,10 @@ const Header = () => {
                 <Navbar.Brand href="#home">Firebase Authentication</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end gap-2">
-                    {currentUser?.uid ? (
+                    {currentUser?.userID ? (
                         <>
                             <Navbar.Text>
-                                <img src={currentUser.photoURL} alt={currentUser.displayName} className='rounded-circle' style={{ border: '1px solid red', width: '35px', height: '35px'}}/> {currentUser.displayName}
+                                <img src={currentUser.photoURL} alt={currentUser.name} className='rounded-circle' style={{ border: '1px solid red', width: '35px', height: '35px'}}/> {currentUser.name}
                             </Navbar.Text>
                             <Navbar.Text>
                                 <Button onClick={handleSignOut}>Sign Out</Button>
@@ -44,9 +45,6 @@ const Header = () => {
                             </Navbar.Text>
                         </>
                     )}
-
-
-
 
                 </Navbar.Collapse>
             </Container>

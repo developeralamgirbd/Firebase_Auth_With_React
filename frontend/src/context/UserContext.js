@@ -8,16 +8,18 @@ import {
     signInWithEmailAndPassword,
     signInWithPopup,
     onAuthStateChanged,
-    signOut
-   } from "firebase/auth";
+    signOut, updateProfile
+} from "firebase/auth";
 import app from "../firebase/firebase.init";
+import {login} from "../APIRequest/login";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const UserContext = ({children})=>{
     const [currentUser, setCurrentUser]  = useState({});
-const [loading, setLoading] = useState(true);
+    const [userDisplayName, setDisplayName] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
@@ -33,8 +35,11 @@ const [loading, setLoading] = useState(true);
         return signInWithPopup(auth, facebookProvider);
     }
 
-    const createUserWithEmailPassword = (email, password)=>{
+    const createUserWithEmailPassword = async (name, email, password)=>{
+        setDisplayName(name)
         return createUserWithEmailAndPassword(auth, email, password);
+
+
     }
     const signInUserEmailPassword = (email, password)=>{
         return signInWithEmailAndPassword(auth, email, password);
@@ -45,12 +50,23 @@ const [loading, setLoading] = useState(true);
     }
 
     useEffect(()=>{
-        const unsubscribe = onAuthStateChanged(auth, user=>{
-            setCurrentUser(user);
+        return onAuthStateChanged(auth, user=>{
+
+            updateProfile(user, {
+                    displayName: 'alamgir'
+            })
+                .then(()=> {})
+                .catch(err => console.log(err));
+
+            if (user){
+                user.getIdToken().then(token => {
+                    login(token).then(result => {
+                        setCurrentUser(result.data);
+                    })
+                })
+            }
             setLoading(false)
         });
-
-        return unsubscribe;
 
     }, [])
 
