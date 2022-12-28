@@ -1,15 +1,13 @@
 import React, {useContext, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
-import {AuthContext} from "../../context/UserContext";
+import {useAuth} from "../../hooks/useAuth";
 
 const LoginWithEmailPassword = () => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const {signInUserEmailPassword} = useContext(AuthContext);
-
-    const navigate = useNavigate();
+    const {signInUserEmailPassword} = useAuth();
 
     const handleSubmit = event=>{
         event.preventDefault();
@@ -34,7 +32,6 @@ const LoginWithEmailPassword = () => {
 
         signInUserEmailPassword(email, password)
             .then(result => {
-                // navigate('/home');
                 window.location.pathname = '/home';
             })
             .catch(err => {

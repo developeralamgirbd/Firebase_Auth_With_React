@@ -1,16 +1,15 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
-import {AuthContext} from "../../context/UserContext";
+import {Link} from "react-router-dom";
+import {useAuth} from "../../hooks/useAuth";
 
 const RegisterWithEmailPassword = () => {
 
     const [passwordError, setPasswordError] = useState('');
     const [nameError, setNameError] = useState('');
     const [emailError, setEmailError] = useState('');
-    const [success, setSuccess] = useState(false);
 
-    const { createUserWithEmailPassword, loading } = useContext(AuthContext);
+    const { createUserWithEmailPassword, loading } = useAuth();
 
     const handleRegister = event => {
         event.preventDefault();
@@ -56,8 +55,10 @@ const RegisterWithEmailPassword = () => {
 
         createUserWithEmailPassword(email, password)
             .then(result => {
-                // navigate('/login')
-                window.location.pathname = '/home'
+                if (result.user){
+                    window.location.pathname = '/home';
+                }
+
             }).catch(err => {
                 console.log(err.message)
             })

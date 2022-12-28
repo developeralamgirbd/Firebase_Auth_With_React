@@ -1,3 +1,4 @@
+
 import {createBrowserRouter} from "react-router-dom";
 import SignUp from "../pages/signup/SignUp";
 import SignIn from "../pages/signup/SignIn";
@@ -5,6 +6,7 @@ import Main from "../components/Layout/Main";
 import HomePage from "../pages/HomePage";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import PrivateRoute from "./PrivateRoute";
+import RedirectRoute from "./RedirectRoute";
 
 const router = createBrowserRouter([
         {
@@ -13,15 +15,15 @@ const router = createBrowserRouter([
             children: [
                 {
                     path: '/',
-                    element: <SignUp></SignUp>
+                    element: <RedirectRoute><SignUp></SignUp></RedirectRoute>
                 },
                 {
                     path: '/register',
-                    element: <SignUp></SignUp>
+                    element: <RedirectRoute><SignUp></SignUp></RedirectRoute>
                 },
                 {
                     path: '/login',
-                    element: <SignIn></SignIn>
+                    element: <RedirectRoute><SignIn></SignIn></RedirectRoute>
                 },
                 {
                     path: '/home',

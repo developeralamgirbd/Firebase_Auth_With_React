@@ -1,16 +1,17 @@
 import React, {useContext} from 'react';
 import google from '../../assets/images/google-logo.png'
 import {Button, Image} from "react-bootstrap";
-import {AuthContext} from "../../context/UserContext";
-import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../hooks/useAuth";
 
 const LoginWithGoogle = () => {
 
-    const { signInWithGoogle } = useContext(AuthContext);
+    const { signInWithGoogle } = useAuth();
     const handleGoogleSignIn = ()=>{
         signInWithGoogle()
             .then(result => {
-                window.location.pathname = '/home';
+                if (result.user){
+                    window.location.pathname = '/home';
+                }
             }).catch(err => {
                 console.log(err)
         })

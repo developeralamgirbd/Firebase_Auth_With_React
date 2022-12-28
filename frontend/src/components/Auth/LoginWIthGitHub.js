@@ -1,21 +1,21 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Button, Image} from "react-bootstrap";
 import github from "../../assets/images/github-logo.png";
-import {AuthContext} from "../../context/UserContext";
-import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../hooks/useAuth";
 
 const LoginWIthGitHub = () => {
 
-    const {signInWithGithub} = useContext(AuthContext);
+    const {signInWithGithub} = useAuth();
 
-    const navigate = useNavigate();
 
     const handleGithubSignIn = ()=>{
         signInWithGithub()
             .then(result => {
                 const user = result.user;
-                // navigate('/home')
+                if (user){
+
                 window.location.pathname = '/home';
+                }
             })
             .catch(err => {
                 console.log(err);

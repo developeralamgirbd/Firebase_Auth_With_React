@@ -1,20 +1,21 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import facebook from '../../assets/images/Facebook_Logo.png'
 import {Button, Image} from "react-bootstrap";
-import {AuthContext} from "../../context/UserContext";
-import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../hooks/useAuth";
 
 const LoginWithFacebook = () => {
 
-    const { signInWithFacebook } = useContext(AuthContext);
-    const navigate = useNavigate();
+    const { signInWithFacebook } = useAuth();
 
     const handleFacebookSignIn = ()=>{
         signInWithFacebook()
             .then(result => {
                 const user = result.user;
-                // navigate('/home')
-                window.location.pathname = '/home';
+
+                if (user){
+                    window.location.pathname = '/home';
+                }
+
             }).catch(err => {
                 console.log(err)
         })

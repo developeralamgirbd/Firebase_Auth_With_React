@@ -1,18 +1,16 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Button, Container, Navbar} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
-
-import {AuthContext} from "../../context/UserContext";
+import {Link} from "react-router-dom";
+import {useAuth} from "../../hooks/useAuth";
 
 const Header = () => {
 
-    const { currentUser, logOut } = useContext(AuthContext);
-    // console.log(currentUser);
+    const { currentUser, logOut } = useAuth();
     const handleSignOut = ()=>{
         logOut()
             .then(() => {
                 console.log('sign out success')
-                window.location.pathname = '/login';
+                window.location.pathname = '/login'
             }).catch(err => {
                 console.log(err)
             })

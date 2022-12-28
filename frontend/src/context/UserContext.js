@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {
     getAuth,
     GithubAuthProvider,
@@ -8,7 +8,7 @@ import {
     signInWithEmailAndPassword,
     signInWithPopup,
     onAuthStateChanged,
-    signOut, updateProfile
+    signOut
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
 import {login} from "../APIRequest/login";
@@ -42,6 +42,7 @@ const UserContext = ({children})=>{
     const signInUserEmailPassword = (email, password)=>{
         return signInWithEmailAndPassword(auth, email, password);
     }
+
 
     const logOut = () =>{
         return signOut(auth);
