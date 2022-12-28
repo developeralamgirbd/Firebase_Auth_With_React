@@ -61,6 +61,7 @@ const UserContext = ({children})=>{
                 const token = await user.getIdToken();
                 const result = await login(token);
                 console.log(result.data);
+                console.log('token=> ', token);
                 setCurrentUser(result?.data);
                 setLoading(false)
             }
